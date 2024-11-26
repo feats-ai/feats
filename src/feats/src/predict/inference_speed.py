@@ -36,38 +36,48 @@ def setup_device():
 
 if __name__ == "__main__":
 
+    # parse arguments
+    parser = argparse.ArgumentParser(description="Live prediction of UNet")
+    parser.add_argument("-c", "--config", type=str, default="predict_config.yaml", help="Path to config file for live prediction.")
+    args = parser.parse_args()
+
+    # load config file
+    config = yaml.load(open(args.config, "r"), Loader=yaml.FullLoader)
+
     # setup device
     device = setup_device()
 
     #  initialize network
-    model = UNet(enc_chs=[3, 16, 32, 64, 128, 256], dec_chs=[256, 128, 64, 32, 16], out_sz=[24, 32])
-    model.load_state_dict(torch.load("../../models/unet_20082024_172434_103.pt", map_location=device))
+    model = UNet(enc_chs=config["enc_chs"], dec_chs=config["dec_chs"], out_sz=config["output_size"])
+    model.load_state_dict(torch.load(config["model"], map_location=torch.device("cpu"), weights_only=True))
     model.eval()
     model.to(device)
 
+    # prepare dummy input
     dummy_input = torch.randn(1, 3, 240, 320, dtype=torch.float).to(device)
 
-    # INIT LOGGERS
+    # init loggers
     if device == torch.device("cuda") or device == torch.device("cpu"):
         starter, ender = torch.cuda.Event(enable_timing=True), torch.cuda.Event(enable_timing=True)
     elif device == torch.device("mps"):
         starter, ender = torch.mps.event.Event(enable_timing=True), torch.mps.event.Event(enable_timing=True)
 
+    # measure performance over multiple repetitions
     repetitions = 300
     timings=np.zeros((repetitions,1))
 
-    # GPU-WARM-UP
+    # GPU warm-up
     for _ in range(10):
         _ = model(dummy_input)
 
-    # MEASURE PERFORMANCE
+    # start measuring
     with torch.no_grad():
         for rep in range(repetitions):
             starter.record()
             _ = model(dummy_input)
             ender.record()
 
-            # WAIT FOR GPU SYNC
+            # wait for GPU sync
             if device == torch.device("cuda") or device == torch.device("cpu"):
                 torch.cuda.synchronize()
             elif device == torch.device("mps"):
