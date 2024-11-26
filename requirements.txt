@@ -1,0 +1,11 @@
+numpy
+matplotlib
+opencv-python
+pyyaml
+torch
+torchvision
+torchaudio
+wandb
+vtk
+pillow
+shapely
