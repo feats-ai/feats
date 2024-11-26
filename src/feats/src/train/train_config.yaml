@@ -1,0 +1,12 @@
+train_data: ../../data/labels/train/
+val_data: ../../data/labels/val/
+norm_file: normalization_20082024_162046.npy
+pretrained_model: False
+run_path: ../../runs/
+model_path: ../../models/
+enc_chs: [3, 16, 32, 64, 128, 256]
+dec_chs: [256, 128, 64, 32, 16]
+output_size: [24, 32]
+batch_size: 8
+epochs: 400
+learning_rate: 0.001

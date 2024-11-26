@@ -1,0 +1,6 @@
+test_data: ../../data/labels/test/
+norm_file: normalization_20082024_162046.npy
+model: ../../models/unet_20082024_172434_103.pt
+enc_chs: [3, 16, 32, 64, 128, 256]
+dec_chs: [256, 128, 64, 32, 16]
+output_size: [24, 32]
