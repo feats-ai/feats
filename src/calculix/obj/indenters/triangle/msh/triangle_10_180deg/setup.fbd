@@ -1,0 +1,9 @@
+###################################################################
+# This file is used to setup the indenter_mesh for the simulation # 
+###################################################################
+valu indenterRotX 180
+valu indenterRotY 0
+valu indenterRotZ 0
+valu indenterTraX -5.00000007451
+valu indenterTraY -2.88675134154
+valu indenterTraZ -10.0

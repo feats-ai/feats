@@ -1,0 +1,9 @@
+###################################################################
+# This file is used to setup the gelsight_mesh for the simulation # 
+###################################################################
+valu gelsight_miniTraX 0.25
+valu gelsight_miniTraY -23.25
+valu gelsight_miniTraZ 0.5
+valu gelsight_miniRotX 90
+valu gelsight_miniRotY 0
+valu gelsight_miniRotZ 90
