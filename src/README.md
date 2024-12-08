@@ -1,4 +1,4 @@
-Source files of the project are organized as followed:
+#### Source files of the project are organized as followed:
 ```
 src/
 ├── calculix/          # Files related to simulation with Calculix (e.g. Meshes)
