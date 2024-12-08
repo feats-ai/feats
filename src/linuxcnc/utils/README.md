@@ -1,6 +1,3 @@
-# Table of Content
- - [RPC.py](#RPC.py)
-
 ## RPC.py 
 Module for Server and Client class for Remote Procedure Calls in python<br>
 (Thanks to: https://medium.com/@taraszhere/coding-remote-procedure-call-rpc-with-python-3b14a7d00ac8)
