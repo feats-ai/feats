@@ -1,4 +1,4 @@
-Source files of the project are organized as followed:
+## Source Files
 
 - [calculix/](https://github.com/feats-ai/feats/tree/main/src/calculix)
     - Files related to sim
