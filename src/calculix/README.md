@@ -1,5 +1,5 @@
 # CalculiX Files
-### [obj/](https://github.com/feats-ai/feats/edit/main/src/calculix/obj)
+## [obj/](https://github.com/feats-ai/feats/edit/main/src/calculix/obj)
 Models and meshes for the gel/indenter. The files are organized using the following structure: 
 ```
 📂 {Object}/                    # Parentfolder for specific object (e.g. Sphere)
