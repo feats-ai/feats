@@ -1,7 +1,7 @@
 ## Source Files
 
 - [calculix/](https://github.com/feats-ai/feats/tree/main/src/calculix)
-    - Files related to sim
+    - Files related to FEA with calculix
 - [feats/](https://github.com/feats-ai/feats/tree/main/src/feats)
     - Files related to controlling the CNC milling machine
 - [linuxcnc/](https://github.com/feats-ai/feats/tree/main/src/linuxcnc)
