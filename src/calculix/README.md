@@ -1,10 +1,23 @@
-# TODO
-### This folder contains all files related to CalculiX
-#### obj/
-The models and meshes for the gel/indenter. The files are organized using the following structure: 
+# CalculiX Files
+## [obj/](https://github.com/feats-ai/feats/edit/main/src/calculix/obj)
+Models and meshes for the gel/indenter. The files are organized using the following structure: 
 ```
-Object/
-├── ob/          # Files related to simulation with Calculix (e.g. Meshes)
-├── feats/             # Files related to controlling a CNC milling machine
-└── linuxcnc/          # Files related to training (e.g. data prepation, NN model)
+📂 {Object}/                    # Parentfolder for specific object (e.g. Sphere)
+    📂 model/                   # Contains all 3D-Models of the object (e.g. sphere_15 -> 15mm diameter)
+        📄 {model1}
+        📄 {model2}
+        📄 ...
+    📂 msh/                     # Contains all meshes for corresponding models 
+        📂 {model1}/            # e.g. sphere_15
+            📄 setup.fbd        # calculix batch file to setup mesh in simulation
+            📂 {mesh1}          3 e.g. 01_tetMesh_2ndOrder_18size
+                📂 ccx          # calculix .inp files of mesh
+                    ...
+                📄 {mesh1}.geo  # gmsh .geo file containing mesh settings
+            📂 {mesh2}
+            📂 ...
+        📂 {model2}/
+            📄 setup.fbd
+            ...
+        📂 ...
 ```
