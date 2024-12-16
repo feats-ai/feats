@@ -1,0 +1,14 @@
+*************************
+**** Gel definition  ****
+*************************
+*MATERIAL, NAME=Silicone
+*HYPERELASTIC, NEO HOOKE
+0.0725, 0.
+
+*************************
+** Indenter definition **
+*************************
+*MATERIAL, NAME=Indenter
+*ELASTIC
+**Steel parameters
+210000.0, 0.3

@@ -1,0 +1,72 @@
+** Mesh 
+*INCLUDE, INPUT=all.msh
+** gelsurface/volume
+*INCLUDE, INPUT=gelsight_miniVolume.nam
+*INCLUDE, INPUT=gelsight_miniSurface.sur
+*INCLUDE, INPUT=gelsight_miniFixed.nam
+**indneter surfaces/volumes
+*INCLUDE, INPUT=indenterVolume.nam
+*INCLUDE, INPUT=indenterSurface.sur
+*INCLUDE, INPUT=indenterFixed.nam
+
+** Materials
+*INCLUDE, INPUT=materials.inp
+
+*SOLID SECTION, ELSET=Egelsight_miniVolume, MATERIAL=Silicone
+*SOLID SECTION, ELSET=EindenterVolume, MATERIAL=Indenter
+**RIGID BODY, NSET=NindenterVolume, REF NODE=500000
+
+** Contact Constraints
+*CONTACT PAIR, INTERACTION=indenterPress, TYPE=SURFACE TO SURFACE
+Sgelsight_miniSurface,SindenterSurface
+** Surface behavior definition
+*SURFACE INTERACTION, NAME=indenterPress
+*SURFACE BEHAVIOR, PRESSURE-OVERCLOSURE=TIED
+*FRICTION
+1.0
+** end surface behavior
+
+**NindenterTop,1,3
+*BOUNDARY
+Ngelsight_miniFixed, 1,3
+NindenterFixed, 1,2
+
+** Normal Simulation Step
+*STEP, NLGEOM
+*STATIC, SOLVER=SPOOLES
+0.1, 1
+**0.05,5.,1.e-15,1.e30
+**CLOAD
+**7240, 3 , -3
+*BOUNDARY
+NindenterFixed,3,,-1.
+**CONTACT FILE, FREQUENCY=10000, CONTACT ELEMENTS 
+*CONTACT PRINT, MASTER=SindenterSurface, SLAVE=Sgelsight_miniSurface, FREQUENCY=100000
+CF
+*NODE PRINT,NSET=Ngelsight_miniVolume, TOTALS=YES
+RF
+*NODE PRINT,NSET=Ngelsight_miniFixed, TOTALS=YES
+RF
+*NODE FILE
+U
+*EL FILE
+S
+*END STEP
+
+*STEP 
+*STATIC, SOLVER=SPOOLES
+0.1, 1
+*BOUNDARY
+NindenterFixed,1,,0.0
+NindenterFixed,2,,0.0
+*CONTACT PRINT, MASTER=SindenterSurface, SLAVE=Sgelsight_miniSurface, FREQUENCY=100000
+CF
+*NODE PRINT,NSET=Ngelsigh_miniVolume, TOTALS=YES
+RF
+*NODE PRINT,NSET=Ngelsight_miniFixed, TOTALS=YES
+RF
+*NODE FILE
+U
+*EL FILE
+S
+*END STEP

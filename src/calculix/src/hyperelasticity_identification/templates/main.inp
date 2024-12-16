@@ -1,0 +1,7 @@
+*INCLUDE,INPUT=template/all.msh
+*INCLUDE,INPUT=template/gelsight_miniVolume.nam
+*INCLUDE,INPUT=template/gelsight_miniFixed.nam
+*INCLUDE,INPUT=template/gelsight_miniSurface.sur
+*INCLUDE,INPUT=template/indenterVolume.nam
+*INCLUDE,INPUT=template/indenterFixed.nam
+*INCLUDE,INPUT=template/indenterSurface.sur

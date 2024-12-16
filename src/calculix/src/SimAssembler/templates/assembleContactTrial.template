@@ -1,0 +1,70 @@
+# read parameters 
+read parameters.fbd
+
+# position mesh
+valu Vgelsight_miniMesh    & Vgelsight_miniDir /ccx/gelsight_miniMesh.inp
+valu Vgelsight_miniSurface & Vgelsight_miniDir /ccx/gelsight_miniSurface.sur
+valu Vgelsight_miniFixed   & Vgelsight_miniDir /ccx/gelsight_miniFixed.nam
+
+read Vgelsight_miniMesh inp
+read Vgelsight_miniSurface inp 
+read Vgelsight_miniFixed inp 
+
+valu Vgelsight_miniSetup & Vgelsight_miniDir /../setup.fbd
+read Vgelsight_miniSetup
+comp gelsight_miniVolume do
+move gelsight_miniVolume tra gelsight_miniTraX gelsight_miniTraY gelsight_miniTraZ 
+move gelsight_miniVolume rot x gelsight_miniRotX 
+move gelsight_miniVolume rot y gelsight_miniRotY
+move gelsight_miniVolume rot z gelsight_miniRotZ
+
+# position indenter
+valu VindenterMesh    & VindenterDir /ccx/indenterMesh.inp
+valu VindenterSurface & VindenterDir /ccx/indenterSurface.sur
+valu VindenterFixed   & VindenterDir /ccx/indenterFixed.nam
+
+valu line1 & *INCLUDE,INPUT= VindenterMesh
+valu line2 & *INCLUDE,INPUT= VindenterSurface
+valu line3 & *INCLUDE,INPUT= VindenterFixed
+
+sys echo  line1 > main.inp
+sys echo  line2 >> main.inp
+sys echo  line3 >> main.inp 
+
+read main.inp inp add 
+sys rm main.inp
+
+valu VindenterSetup & VindenterDir /../setup.fbd
+read VindenterSetup
+comp indenterVolume do
+move indenterVolume tra indenterTraX indenterTraY indenterTraZ 
+move indenterVolume rot x indenterRotX 
+move indenterVolume rot y indenterRotY
+move indenterVolume rot z indenterRotZ
+
+# adjust the view 
+rot x 
+rot c 90
+rot l 180
+
+#apply offset
+move indenterVolume tra VoffsetX VoffsetY 0
+frame
+
+#write all Files
+send all abq
+send gelsight_miniVolume abq nam
+send gelsight_miniFixed abq nam
+send gelsight_miniSurface abq surf
+send indenterVolume abq nam
+send indenterFixed abq nam
+send indenterSurface abq surf
+
+sys echo *INCLUDE,INPUT=all.msh > main.inp
+sys echo *INCLUDE,INPUT=gelsight_miniVolume.nam >> main.inp
+sys echo *INCLUDE,INPUT=gelsight_miniFixed.nam >> main.inp
+sys echo *INCLUDE,INPUT=gelsight_miniSurface.sur >> main.inp
+sys echo *INCLUDE,INPUT=indenterVolume.nam >> main.inp
+sys echo *INCLUDE,INPUT=indenterFixed.nam >> main.inp
+sys echo *INCLUDE,INPUT=indenterSurface.sur >> main.inp
+
