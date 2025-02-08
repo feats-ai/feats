@@ -130,7 +130,7 @@ if __name__ == "__main__":
 
         os.system("cp {} {}".format(args.dataDir+file, simDir_idx+"/"+file))
 
-        assemble(args.gelsight_miniDir, args.indenterDir, data["x_0"], data["y_0"], simDir_idx)
+        assemble(args.gelsight_miniDir, args.indenterDir, data["x_0"], data["y_0"], data["deg"], simDir_idx)
 
         writeInput(data["d_x"], data["d_y"], data["d_z"], workingDir, simDir_idx)
 
