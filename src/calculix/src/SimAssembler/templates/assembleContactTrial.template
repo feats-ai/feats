@@ -48,8 +48,8 @@ rot c 90
 rot l 180
 
 #apply offset
-move indenterVolume tra VoffsetX VoffsetY 0
 move indenterVolume rot z VrotZ
+move indenterVolume tra VoffsetX VoffsetY 0
 frame
 
 #write all Files
