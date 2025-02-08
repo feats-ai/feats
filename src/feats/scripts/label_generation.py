@@ -373,7 +373,7 @@ if __name__ == "__main__":
 
             # generate label if contact_forces are not empty
             if contact_forces:
-                label_filename = "../data/labels/train/" + "_".join(ccx_results.split("/")[-2:])[12:] + results_folder + ".npy"
+                label_filename = "../data/labels/train/" + results_folder + "_" + ccx_results.split("/")[-2] + ".npy"
                 grid, total_force = generate_label(coords, sur_elements, contact_forces, H, parallel=False)
 
                 #plot_label(grid, total_force, H, cnc_data)
