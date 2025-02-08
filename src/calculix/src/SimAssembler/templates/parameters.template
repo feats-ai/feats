@@ -6,3 +6,4 @@ valu Vgelsight_miniDir $gelsight_miniDir
 valu VindenterDir $indenterDir
 valu VoffsetX $offsetX
 valu VoffsetY $offsetY
+valu VrotZ $rotZ

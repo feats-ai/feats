@@ -5,7 +5,7 @@ from string import Template
 from tkinter.filedialog import askdirectory
 
 
-def writeParameter(gelsight_miniDir, indenterDir, offsetX, offsetY, templateDir, dest):
+def writeParameter(gelsight_miniDir, indenterDir, offsetX, offsetY, rotZ, templateDir, dest):
     """
     Writes the positional parameters of the indenenter and gelsight_mini mesh to the parameters file.
 
@@ -13,6 +13,7 @@ def writeParameter(gelsight_miniDir, indenterDir, offsetX, offsetY, templateDir,
     :param indenterDir: path to indenter mesh
     :param offsetX: offset in x-direction applied to indenter
     :param offsetY: offset in y-direction applied to indenter
+    :param rotZ: optional rotation around the z axis of the indenter (in degrees)
     :param templateDir: path to template directory
     :param dest: destination of the parameter file
     :return: None
@@ -22,7 +23,8 @@ def writeParameter(gelsight_miniDir, indenterDir, offsetX, offsetY, templateDir,
         'indenterDir': indenterDir,
         'gelsight_miniDir': gelsight_miniDir,
         'offsetX': offsetX,
-        'offsetY': offsetY
+        'offsetY': offsetY,
+        'rotZ': rotZ
     }
 
     writef = open(dest, 'w')
@@ -35,7 +37,7 @@ def writeParameter(gelsight_miniDir, indenterDir, offsetX, offsetY, templateDir,
     writef.close()
 
 
-def assemble(gelsight_miniDir, indenterDir, offsetX, offsetY, simDir):
+def assemble(gelsight_miniDir, indenterDir, offsetX, offsetY, rotZ, simDir):
     """
     Assembles the gelsight_mini and indenter mesh with a given indenter position.
 
@@ -43,6 +45,7 @@ def assemble(gelsight_miniDir, indenterDir, offsetX, offsetY, simDir):
     :param indenterDir: path to indenter mesh
     :param offsetX: offset in x-direction applied to indenter
     :param offsetY: offset in y-direction applied to indenter
+    :param rotZ: optional rotation of the indenter around the z axis (in degrees)
     :param simDir: destination of the simulation
     :return: None
     """
@@ -62,7 +65,7 @@ def assemble(gelsight_miniDir, indenterDir, offsetX, offsetY, simDir):
     absGelsight_miniDir = os.path.abspath(gelsight_miniDir)
     absIndenterDir = os.path.abspath(indenterDir)
 
-    writeParameter(absGelsight_miniDir, absIndenterDir, offsetX, offsetY, templatesDir, paramFile)
+    writeParameter(absGelsight_miniDir, absIndenterDir, offsetX, offsetY, rotZ, templatesDir, paramFile)
     os.system('cp {} {}'.format(templatesDir+'/assembleContactTrial.template', asmblFile))
 
     # run assemble script and remove temp files
@@ -85,9 +88,11 @@ if __name__ == "__main__":
    parser.add_argument("-s", "--simDir", dest="simDir", required=False,
                     help="Directory of the simulation", metavar="DIR")
    parser.add_argument("-x", "--offsetX", dest="offsetX", required=False, default=0.0, type=float,
-                    help="Offset in x-direction applied to indenter", metavar="INT")
+                    help="Offset in x-direction applied to indenter", metavar="DOUBLE")
    parser.add_argument("-y", "--offsetY", dest="offsetY", required=False, default=0.0, type=float,
-                    help="Offset in y-direction applied to indenter", metavar="INT")
+                    help="Offset in y-direction applied to indenter", metavar="DOUBLE")
+   parser.add_argument("-r", "--rotation", dest="rotZ", required=False, default=0.0, type=float,
+                    help="Rotation of indenter around z axis (in degrees)", metavar="DEG")
 
    args = parser.parse_args()
 
@@ -112,4 +117,4 @@ if __name__ == "__main__":
       raise TypeError('Given indenter directory: \"{}\" is not a valid directory'.format(args.indenterDir))
 
    # call assembly
-   assemble(gelsight_miniDir, indenterDir, args.offsetX, args.offsetY, simDir)
+   assemble(gelsight_miniDir, indenterDir, args.offsetX, args.offsetY, args.rotZ, simDir)
