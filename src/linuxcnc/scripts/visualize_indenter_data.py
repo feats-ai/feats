@@ -54,7 +54,7 @@ def visualize_data(folder):
         data = np.load(os.path.join(folder, file), allow_pickle=True).item()
 
         # plot image
-        plt.title(folder)
+        plt.title(data["indenter"])
         plt.imshow(data["gs_img"].astype(np.uint8))
 
         # move image to the left in figure
@@ -73,6 +73,7 @@ def visualize_data(folder):
         plt.text(340, 190, "d_x: {} mm".format(data["d_x"]), color="black", fontsize=12)
         plt.text(340, 210, "d_y: {} mm".format(data["d_y"]), color="black", fontsize=12)
         plt.text(340, 230, "d_z: {} mm".format(data["d_z"]), color="black", fontsize=12)
+        plt.text(340, 250, "deg: {}".format(data["deg"]), color="black", fontsize=12)
 
         # pause until the user presses a key
         plt.pause(0.1)
