@@ -1,7 +1,7 @@
 // load geometry
 // !!! set extrusion layers in .geo file !!!
 // used = 0 (else we get not a full tethraedal mesh)
-Merge "../../../model/sloping_cuboid_10.step";
+Merge "../../../model/sloping_cuboid_10_old.step";
 
 //======================================================================================================
 //.....(General) Meshing options...... (only general options are set here) 
@@ -26,7 +26,7 @@ Mesh.SubdivisionAlgorithm=0;
 Mesh.Smoothing=21;
 
 //element size factor
-Mesh.MeshSizeFactor=1.75;
+Mesh.MeshSizeFactor=1;
 
 //min/max element sizes
 Mesh.MeshSizeMin=0;
@@ -47,7 +47,7 @@ Physical Volume("indenterVolume", 28) = {1};
 Field[1] = Box;
 Field[1].Thickness = 1.5;
 Field[1].VIn = 0.3;
-Field[1].VOut = 1.5;
+Field[1].VOut = 1.6;
 Field[1].XMax = 11;
 Field[1].XMin = -1;
 Field[1].YMax = 11;

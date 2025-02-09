@@ -45,15 +45,15 @@ Mesh.SecondOrderIncomplete=0;
 Physical Volume("indenterVolume", 28) = {1};
 
 Field[1] = Box;
-Field[1].Thickness = 1.5;
-Field[1].VIn = 0.3;
-Field[1].VOut = 1.6;
-Field[1].XMax = 11;
-Field[1].XMin = -1;
-Field[1].YMax = 11;
-Field[1].YMin = -1;
-Field[1].ZMax = 11;
-Field[1].ZMin = 8;
+Field[1].Thickness = 1;
+Field[1].VIn = 0.6;
+Field[1].VOut = 1.3;
+Field[1].XMax = 5;
+Field[1].XMin = -5;
+Field[1].YMax = 5;
+Field[1].YMin = -5;
+Field[1].ZMax = 14;
+Field[1].ZMin = 11;
 Background Field = 1;
 
 Mesh 1;
