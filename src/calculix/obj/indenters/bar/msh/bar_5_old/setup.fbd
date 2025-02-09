@@ -4,6 +4,6 @@
 valu indenterRotX 180
 valu indenterRotY 0
 valu indenterRotZ 0
-valu indenterTraX 0
-valu indenterTraY 0
-valu indenterTraZ -13.0
+valu indenterTraX -15
+valu indenterTraY -2.5
+valu indenterTraZ -10.0
