@@ -1,4 +1,15 @@
 # LinuxCNC Files
+## [cad_files/](https://github.com/feats-ai/feats/edit/main/src/linuxcnc/cad_files)
+Folder containing the CAD files for the setup of the CNC machine. The files are organized using the following structure:
+```
+📄 cnc_interface.step            # STEP file of interface part to CNC machine
+📄 cnc_interface.stl             # STL file of interface part to CNC machine
+📄 gelsight-mini-adapter.step    # STEP file of GelSight Mini sensor adapter
+📄 gelsight-mini-adapter.stl     # STL file of GelSight Mini sensor adapter
+📄 resense-hex21-adapter.step    # STEP file of Resense Hex 21 sensor adapter
+📄 resense-hex21-adapter.stl     # STL file of Resense Hex 21 sensor adapter
+```
+
 ## [data/](https://github.com/feats-ai/feats/edit/main/src/linuxcnc/data)
 Folder containing the data collected from the CNC machine. The files are organized using the following structure:
 ```
