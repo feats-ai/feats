@@ -13,7 +13,7 @@ from resense_hex_21.hex21 import connect_to_sensor
 from gelsight_mini.gsdevice import capture_image
 
 
-def record_single_datapoint(serial_port:str="/dev/tty.usbmodem38A6337730371", indenter:str="None", folder:str="../raw_data/test/", x_0:float=0.0, y_0:float=0.0, z_0:float=0.0, d_x:float=0.0, d_y:float=0.0, d_z:float=0.0) -> None:
+def record_single_datapoint(serial_port:str="/dev/tty.usbmodem38A6337730371", indenter:str="None", folder:str="../raw_data/test/", x_0:float=0.0, y_0:float=0.0, z_0:float=0.0, d_x:float=0.0, d_y:float=0.0, d_z:float=0.0, deg:float=0.0) -> None:
 
     # connect to sensor and capture data point
     resense_hex21 = connect_to_sensor(serial_port)
@@ -41,6 +41,7 @@ def record_single_datapoint(serial_port:str="/dev/tty.usbmodem38A6337730371", in
         "d_x": d_x,
         "d_y": d_y,
         "d_z": d_z,
+        "deg": deg,
         "f_x": recording.force.x,
         "f_y": recording.force.y,
         "f_z": recording.force.z,
@@ -74,6 +75,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Record data with cnc machine.")
     parser.add_argument("--serial_port", type=str, default="/dev/tty.usbmodem38A6337730371", help="Serial port of the sensor")
     parser.add_argument("--indenter", type=str, default="None", help="Name of the indenter")
+    parser.add_argument("--deg", type=float, default=0.0, help="Angle of the indenter")
     parser.add_argument("--folder", type=str, required=True, help="Folder to save data")
     parser.add_argument("--coordinates", type=str, required=True, help="Path to numpy file with coordinates")
 
@@ -116,7 +118,7 @@ if __name__ == "__main__":
 
         # record data point
         print("Sample no: ", i+1)
-        record_single_datapoint(serial_port=args.serial_port, indenter=args.indenter, folder=args.folder, x_0=x_0, y_0=y_0, z_0=z_0, d_x=d_x, d_y=d_y, d_z=d_z)
+        record_single_datapoint(serial_port=args.serial_port, indenter=args.indenter, folder=args.folder, x_0=x_0, y_0=y_0, z_0=z_0, d_x=d_x, d_y=d_y, d_z=d_z, deg=args.deg)
 
         # undo displacement
         retVal = client.move(x_0, y_0, z_0, 100)
@@ -125,5 +127,5 @@ if __name__ == "__main__":
         retVal = client.move(x_0, y_0, z_0 + 1, 1000)
 
     # go home
-    retVal = client.move(0.0, 0.0, 30.0, 1000)
+    retVal = client.move(0.0, 0.0, 70.0, 1000)
     print(retVal)
