@@ -1,4 +1,5 @@
 import os
+import argparse
 import numpy as np
 
 
@@ -21,15 +22,20 @@ def split_train_data(train_data_folder):
 
     # copy files in respecitve folders
     for i in validation_data:
-        os.system("cp {} {}".format(train_data_folder + train_data_files[i], "../data/labels/val/" + train_data_files[i]))
+        os.system("cp {} {}".format(train_data_folder + train_data_files[i], train_data_folder.split("train")[0] + "val/" + train_data_files[i]))
         os.system("rm {}".format(train_data_folder + train_data_files[i]))
 
     for i in test_data:
-        os.system("cp {} {}".format(train_data_folder + train_data_files[i], "../data/labels/test/" + train_data_files[i]))
+        os.system("cp {} {}".format(train_data_folder + train_data_files[i], train_data_folder.split("train")[0] + "test/" + train_data_files[i]))
         os.system("rm {}".format(train_data_folder + train_data_files[i]))
 
 
 if __name__ == "__main__":
 
-    train_data_folder = "../data/labels/train/"
-    split_train_data(train_data_folder)
+    # parse arguments
+    parser = argparse.ArgumentParser(description="Normalize the dataset.")
+    parser.add_argument("-f", "--folder", type=str, default="../data/labels/train/", help="Path to the dataset directory.")
+    args = parser.parse_args()
+
+    # run main function
+    split_train_data(args.folder)
