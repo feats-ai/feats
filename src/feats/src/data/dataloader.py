@@ -168,7 +168,8 @@ class FEATSDataset(Dataset):
         sample = {
             "gs_img": gs_img,
             "grid": torch.stack((torch.from_numpy(data["grid_x"]).float(), torch.from_numpy(data["grid_y"]).float(), torch.from_numpy(data["grid_z"]).float()), 2),
-            "total_force": torch.stack((torch.from_numpy(np.array(data["f_x"])).float(), torch.from_numpy(np.array(data["f_y"])).float(), torch.from_numpy(np.array(data["f_z"])).float()), 0)
+            "total_force": torch.stack((torch.from_numpy(np.array(data["f_x"])).float(), torch.from_numpy(np.array(data["f_y"])).float(), torch.from_numpy(np.array(data["f_z"])).float()), 0),
+            "filename": self.files[idx]
         }
-        print(self.files[idx])
+
         return sample
