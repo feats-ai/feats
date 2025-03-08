@@ -1,6 +1,7 @@
-test_data: ../../data/labels/test/
-norm_file: normalization_20082024_162046.npy
-model: ../../models/unet_20082024_172434_103.pt
+test_data: ../../data/v22_labels_24_32/test/
+norm_file: normalization_24022025_194544.npy
+model: ../../models/unet_27022025_222524_141.pt
+calibration_file: null
 enc_chs: [3, 16, 32, 64, 128, 256]
 dec_chs: [256, 128, 64, 32, 16]
 output_size: [24, 32]

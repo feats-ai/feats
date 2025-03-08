@@ -18,11 +18,11 @@ from models.unet import UNet
 
 def main(config):
     """
-    Main function for visualization of the UNet. This function loads the model,
+    Main function for evaluating of the UNet. This function loads the model,
     creates a test dataset and iterates over the dataset to get the predictions
     of the model. The predictions are then plotted against the ground truth.
 
-    :param config: dictionary containing the configuration for visualization
+    :param config: dictionary containing the configuration for evaluation
     :return: None
     """
 
@@ -46,6 +46,7 @@ def main(config):
     # keep track of the mae for each channel
     criterion_MAE = torch.nn.L1Loss()
     mae_fx = []; mae_fy = []; mae_fz = []
+    mae_fx_guf = []; mae_fy_guf = []; mae_fz_guf = []
 
     # disable gradient computation and reduce memory consumption
     with torch.no_grad():
@@ -76,93 +77,24 @@ def main(config):
             pred_grid_y = unnormalize(outputs[:, :, 1], "grid_y", config["test_data"], config["norm_file"])
             pred_grid_z = unnormalize(outputs[:, :, 2], "grid_z", config["test_data"], config["norm_file"])
 
-            # create figure
-            fig = plt.figure()
-            fig.set_size_inches(12, 7)
-
-            # create grid for 3x2 subplots
-            grid = AxesGrid(fig, 121,
-                    nrows_ncols=(2, 3),
-                    axes_pad=0.50,
-                    share_all=True,
-                    label_mode="all",
-                    cbar_location="bottom",
-                    cbar_mode="edge",
-                    cbar_pad=0.25,
-                    cbar_size="15%",
-                    direction="column"
-                    )
-
-            # set color limits
-            clim_xy = [-0.07, 0.07]
-            clim_z = [-0.3, 0.0]
-
-            # plot each channel
-            gt_x = grid[0].imshow(gt_grid_x, cmap="viridis")
-            gt_x.set_clim(clim_xy)
-            pred_x = grid[1].imshow(pred_grid_x, cmap="viridis")
-            pred_x.set_clim(clim_xy)
-            grid.cbar_axes[0].colorbar(gt_x)
-
-            gt_y = grid[2].imshow(gt_grid_y, cmap="viridis")
-            gt_y.set_clim(clim_xy)
-            pred_y = grid[3].imshow(pred_grid_y, cmap="viridis")
-            pred_y.set_clim(clim_xy)
-            grid.cbar_axes[1].colorbar(gt_y)
-
-            gt_z = grid[4].imshow(gt_grid_z, cmap="viridis")
-            gt_z.set_clim(clim_z)
-            pred_z = grid[5].imshow(pred_grid_z, cmap="viridis")
-            pred_z.set_clim(clim_z)
-            grid.cbar_axes[2].colorbar(gt_z)
-
-            # set labels for each axis
-            j = 0
-            direction = ["x", "y", "z"]
-            for cax in grid.cbar_axes:
-                cax.axis[cax.orientation].set_label("{}-axis [N]".format(direction[j%3]))
-                j += 1
-
-            # adjust the size of the plot
-            plt.subplots_adjust(left=-.52, right=4)
-
-            # use total force as title for each channel
-            grid[0].set_title("{:.2f}N".format(gt_total_force_x))
-            grid[1].set_title("{:.2f}N".format(torch.sum(pred_grid_x, dim=[0, 1])))
-            grid[2].set_title("{:.2f}N".format(gt_total_force_y))
-            grid[3].set_title("{:.2f}N".format(torch.sum(pred_grid_y, dim=[0, 1])))
-            grid[4].set_title("{:.2f}N".format(gt_total_force_z))
-            grid[5].set_title("{:.2f}N".format(torch.sum(pred_grid_z, dim=[0, 1])))
-
-            # set titel for the rows
-            grid[0].set_ylabel("Ground Truth", fontsize=12)
-            grid[1].set_ylabel("Prediction", fontsize=12)
-
-            # show image and make it bigger
-            gs_img = data["gs_img"].numpy().squeeze(0)
-            gs_img = cv2.cvtColor(gs_img, cv2.COLOR_BGR2RGB)
-            gs_img = cv2.resize(gs_img, (int(320*1.5), int(240*1.5)))
-            cv2.imshow("GelSight Mini", gs_img)
-            cv2.moveWindow("GelSight Mini", 1320, 400)
-
-            # show plot and close it after key press
-            plt.show(block=False)
-            plt.pause(0.1)
-            plt.waitforbuttonpress()
-            plt.close()
-
-            # close image
-            cv2.destroyAllWindows()
-
             # calculate mae for each channel of the total force
-            mae_fx.append(criterion_MAE(gt_total_force_x, torch.sum(pred_grid_x, dim=[0, 1])))
-            mae_fy.append(criterion_MAE(gt_total_force_y, torch.sum(pred_grid_y, dim=[0, 1])))
-            mae_fz.append(criterion_MAE(gt_total_force_z, torch.sum(pred_grid_z, dim=[0, 1])))
-
+            z_threshold = -40
+            if gt_total_force_z > z_threshold:
+                mae_fx.append(criterion_MAE(gt_total_force_x, torch.sum(pred_grid_x, dim=[0, 1])))
+                mae_fy.append(criterion_MAE(gt_total_force_y, torch.sum(pred_grid_y, dim=[0, 1])))
+                mae_fz.append(criterion_MAE(gt_total_force_z, torch.sum(pred_grid_z, dim=[0, 1])))
+                mae_fx_guf.append(criterion_MAE(gt_grid_x, pred_grid_x))
+                mae_fy_guf.append(criterion_MAE(gt_grid_y, pred_grid_y))
+                mae_fz_guf.append(criterion_MAE(gt_grid_z, pred_grid_z))
+                                       
     # print mean mae for each channel
     print("Mean MAE for x-axis: {:.4f} +/- {:.4f}".format(torch.mean(torch.stack(mae_fx)), torch.std(torch.stack(mae_fx))))
     print("Mean MAE for y-axis: {:.4f} +/- {:.4f}".format(torch.mean(torch.stack(mae_fy)), torch.std(torch.stack(mae_fy))))
     print("Mean MAE for z-axis: {:.4f} +/- {:.4f}".format(torch.mean(torch.stack(mae_fz)), torch.std(torch.stack(mae_fz))))
+
+    print("Mean MAE for x-axis (GUF): {:.4f} +/- {:.4f}".format(torch.mean(torch.stack(mae_fx_guf)), torch.std(torch.stack(mae_fx_guf))))
+    print("Mean MAE for y-axis (GUF): {:.4f} +/- {:.4f}".format(torch.mean(torch.stack(mae_fy_guf)), torch.std(torch.stack(mae_fy_guf))))
+    print("Mean MAE for z-axis (GUF): {:.4f} +/- {:.4f}".format(torch.mean(torch.stack(mae_fz_guf)), torch.std(torch.stack(mae_fz_guf))))
 
 
 if __name__ == "__main__":

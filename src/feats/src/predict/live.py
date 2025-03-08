@@ -65,7 +65,22 @@ def make_prediction(img, model, device, config):
     gs_img = torch.from_numpy(data["gs_img"]).float()
     gs_img = gs_img.unsqueeze(0).permute(0, 3, 1, 2).to(device)
 
-    outputs = model(gs_img)
+    # load calibration file
+    if config["calibration_file"] is not None:
+        calibration = np.load(config["calibration_file"])
+        rows, cols = 240, 320
+        M = np.float32([[1, 0, calibration[0]], [0, 1, calibration[1]]])
+
+    # prepare input data
+    if config["calibration_file"] is not None:
+        inputs_prewarp = data["gs_img"]
+        inputs_warp = cv2.warpAffine(inputs_prewarp,  M, (cols, rows), borderMode=cv2.BORDER_REPLICATE)
+        inputs = torch.from_numpy(inputs_warp).permute(2, 0, 1).unsqueeze(0).float().to(device)
+    else:
+        inputs = gs_img
+
+    # get model prediction
+    outputs = model(inputs)
 
     # unnormalize the outputs
     outputs_transf = outputs.squeeze(0).permute(1, 2, 0)
