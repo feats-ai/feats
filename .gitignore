@@ -1,4 +1,7 @@
+src/feats/data/
+src/feats/models/
+src/feats/calibration/
 __pycache__/
 .DS_Store
 venv/
-.ropeproject/
+.vscode/
