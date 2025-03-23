@@ -6,12 +6,11 @@ from torch.utils.data import Dataset
 import torchvision.transforms.functional as TF
 
 
-def normalize(data, root_dir, norm_file):
+def normalize(data, norm_file):
     """
     Normalize the data in the FEATS dataset for the given range.
 
     :param data: dictionary containing the data
-    :param root_dir: path to the dataset directory
     :param norm_file: name of the normalization file
     :return: dictionary containing the normalized data
     """
@@ -19,9 +18,6 @@ def normalize(data, root_dir, norm_file):
     # define ranges for normalization
     range_xy = (-1, 1)
     range_z = (0, 1)
-
-    # get path to normalization file
-    norm_file = os.path.dirname(os.path.dirname(root_dir)) + "/" + norm_file
 
     # load normalization
     norm = np.load(norm_file, allow_pickle=True).item()
@@ -45,13 +41,12 @@ def normalize(data, root_dir, norm_file):
     return data
 
 
-def unnormalize(data, key, root_dir, norm_file):
+def unnormalize(data, key, norm_file):
     """
     Unnormalize the data in the FEATS dataset for the given range.
 
     :param data: dictionary containing the data
     :param key: key of the data to unnormalize
-    :param root_dir: path to the dataset directory
     :param norm_file: name of the normalization file
     :return: dictionary containing the unnormalized data
     """
@@ -59,9 +54,6 @@ def unnormalize(data, key, root_dir, norm_file):
     # define ranges for normalization
     range_xy = (-1, 1)
     range_z = (0, 1)
-
-    # get path to normalization file
-    norm_file = os.path.dirname(os.path.dirname(root_dir)) + "/" + norm_file
 
     # load normalization
     norm = np.load(norm_file, allow_pickle=True).item()
@@ -153,7 +145,7 @@ class FEATSDataset(Dataset):
 
         # apply transformations
         if self.transform:
-            data = self.transform(data, self.root_dir, self.norm_file)
+            data = self.transform(data, self.norm_file)
 
         if self.train:
             # augment every fifth sample

@@ -1,5 +1,4 @@
-data_folder: ../../data/v22_labels_24_32/test/ # this is just used as a reference for the normalization file
-norm_file: normalization_24022025_194544.npy
+norm_file: /data/v22_labels_24_32/normalization_24022025_194544.npy
 model: ../../models/unet_27022025_222524_141.pt
 calibration_file: null
 enc_chs: [3, 16, 32, 64, 128, 256]

@@ -64,18 +64,18 @@ def main(config):
             outputs = model(inputs)
 
             # unnormalize gt data
-            gt_grid_x = unnormalize(data["grid"][:, :, :, 0].squeeze(0), "grid_x", config["test_data"], config["norm_file"])
-            gt_grid_y = unnormalize(data["grid"][:, :, :, 1].squeeze(0), "grid_y", config["test_data"], config["norm_file"])
-            gt_grid_z = unnormalize(data["grid"][:, :, :, 2].squeeze(0), "grid_z", config["test_data"], config["norm_file"])
-            gt_total_force_x = unnormalize(data["total_force"][:, 0].squeeze(0), "f_x", config["test_data"], config["norm_file"])
-            gt_total_force_y = unnormalize(data["total_force"][:, 1].squeeze(0), "f_y", config["test_data"], config["norm_file"])
-            gt_total_force_z = unnormalize(data["total_force"][:, 2].squeeze(0), "f_z", config["test_data"], config["norm_file"])
+            gt_grid_x = unnormalize(data["grid"][:, :, :, 0].squeeze(0), "grid_x", config["norm_file"])
+            gt_grid_y = unnormalize(data["grid"][:, :, :, 1].squeeze(0), "grid_y", config["norm_file"])
+            gt_grid_z = unnormalize(data["grid"][:, :, :, 2].squeeze(0), "grid_z", config["norm_file"])
+            gt_total_force_x = unnormalize(data["total_force"][:, 0].squeeze(0), "f_x", config["norm_file"])
+            gt_total_force_y = unnormalize(data["total_force"][:, 1].squeeze(0), "f_y", config["norm_file"])
+            gt_total_force_z = unnormalize(data["total_force"][:, 2].squeeze(0), "f_z", config["norm_file"])
 
             # unnormalize output data
             outputs = outputs.squeeze(0).permute(1, 2, 0)
-            pred_grid_x = unnormalize(outputs[:, :, 0], "grid_x", config["test_data"], config["norm_file"])
-            pred_grid_y = unnormalize(outputs[:, :, 1], "grid_y", config["test_data"], config["norm_file"])
-            pred_grid_z = unnormalize(outputs[:, :, 2], "grid_z", config["test_data"], config["norm_file"])
+            pred_grid_x = unnormalize(outputs[:, :, 0], "grid_x", config["norm_file"])
+            pred_grid_y = unnormalize(outputs[:, :, 1], "grid_y", config["norm_file"])
+            pred_grid_z = unnormalize(outputs[:, :, 2], "grid_z", config["norm_file"])
 
             # calculate mae for each channel of the total force
             z_threshold = -40

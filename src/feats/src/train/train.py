@@ -114,14 +114,14 @@ def loss_total_force(gt_total_force, outputs):
 
     # unnormalize the outputs
     outputs_transf = outputs.squeeze(0).permute(1, 2, 0)
-    pred_grid_x = unnormalize(outputs_transf[:, :, 0], "grid_x", config["train_data"], config["norm_file"])
-    pred_grid_y = unnormalize(outputs_transf[:, :, 1], "grid_y", config["train_data"], config["norm_file"])
-    pred_grid_z = unnormalize(outputs_transf[:, :, 2], "grid_z", config["train_data"], config["norm_file"])
+    pred_grid_x = unnormalize(outputs_transf[:, :, 0], "grid_x", config["norm_file"])
+    pred_grid_y = unnormalize(outputs_transf[:, :, 1], "grid_y", config["norm_file"])
+    pred_grid_z = unnormalize(outputs_transf[:, :, 2], "grid_z", config["norm_file"])
 
     # unnormalize the ground truth total force
-    gt_total_force_x = unnormalize(gt_total_force[:, 0].squeeze(0), "f_x", config["train_data"], config["norm_file"])
-    gt_total_force_y = unnormalize(gt_total_force[:, 1].squeeze(0), "f_y", config["train_data"], config["norm_file"])
-    gt_total_force_z = unnormalize(gt_total_force[:, 2].squeeze(0), "f_z", config["train_data"], config["norm_file"])
+    gt_total_force_x = unnormalize(gt_total_force[:, 0].squeeze(0), "f_x", config["norm_file"])
+    gt_total_force_y = unnormalize(gt_total_force[:, 1].squeeze(0), "f_y", config["norm_file"])
+    gt_total_force_z = unnormalize(gt_total_force[:, 2].squeeze(0), "f_z", config["norm_file"])
 
     # compute the total force for the predictions and ground truth
     pred_total_force_x = torch.sum(pred_grid_x, dim=(0, 1))

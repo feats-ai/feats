@@ -59,7 +59,7 @@ def make_prediction(img, model, device, config):
     data["gs_img"] = img
 
     # normalize data
-    data = normalize(data, config["data_folder"], config["norm_file"])
+    data = normalize(data, config["norm_file"])
 
     # convert to torch tensor
     gs_img = torch.from_numpy(data["gs_img"]).float()
@@ -84,9 +84,9 @@ def make_prediction(img, model, device, config):
 
     # unnormalize the outputs
     outputs_transf = outputs.squeeze(0).permute(1, 2, 0)
-    pred_grid_x = unnormalize(outputs_transf[:, :, 0], "grid_x", config["data_folder"], config["norm_file"])
-    pred_grid_y = unnormalize(outputs_transf[:, :, 1], "grid_y", config["data_folder"], config["norm_file"])
-    pred_grid_z = unnormalize(outputs_transf[:, :, 2], "grid_z", config["data_folder"], config["norm_file"])
+    pred_grid_x = unnormalize(outputs_transf[:, :, 0], "grid_x", config["norm_file"])
+    pred_grid_y = unnormalize(outputs_transf[:, :, 1], "grid_y", config["norm_file"])
+    pred_grid_z = unnormalize(outputs_transf[:, :, 2], "grid_z", config["norm_file"])
 
     # convert to numpy
     pred_grid_x = pred_grid_x.cpu().detach().numpy()
