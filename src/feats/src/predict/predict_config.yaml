@@ -1,5 +1,5 @@
 norm_file: /data/v22_labels_24_32/normalization_24022025_194544.npy
-model: ../../models/unet_27022025_222524_141.pt
+model: ../../models/unet_05032025_134532_108.pt
 calibration_file: null
 enc_chs: [3, 16, 32, 64, 128, 256]
 dec_chs: [256, 128, 64, 32, 16]
