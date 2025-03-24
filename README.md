@@ -46,6 +46,12 @@
             </li>
             <li>
                   <a href="#usage">Usage</a>
+                  <ol>
+                  <li><a href="#general-repository-structure">General Repository Structure</a></li>
+                  <li><a href="#downloading-the-dataset">Downloading the Dataset</a></li>
+                  <li><a href="#running-feats-demo-on-gelsight-mini-sensor">Running FEATS Demo on GelSight Mini Sensor</a></li>
+                  <li><a href="#calibration">Calibration</a></li>
+                  </ol>
             </li>
             <li>
                   <a href="#license">License</a>
@@ -97,6 +103,9 @@ $ pip3 install -r requirements.txt
 
 <!-- Usage -->
 ## Usage
+
+<!-- General Repository Structure -->
+### General Repository Structure
 The source code of this repository is structured into different subfolders, each containing code for a specific part of the project. The main structure is as follows:
 
 ```
@@ -109,6 +118,14 @@ The source code of this repository is structured into different subfolders, each
 
 Each subfolder contains a README file with further instructions on how the folder is structured and what the contained files are used for.
 
+<!-- Downloading the Dataset -->
+### Downloading the Dataset
+The dataset used in this work is available for download [here](https://archimedes.ias.informatik.tu-darmstadt.de/s/LWJxkmxrnPTSqTp). The dataset consists of GelSight Mini images with shear and normal force distributions labels, which were inferred from FEA. The dataset is split into training, validation, and test sets. The dataset is stored as `.npy` files, which can be loaded using the `numpy` library in Python. Make sure to use numpy version 2.X or higher to load the dataset.
+
+Place the downloaded dataset in the [`src/feats/data`](src/feats/data) folder. If you want to train or visualize predictions on the dataset, you can use the provided scripts in the [`src/feats/src`](src/feats/src) folder. You just need to adjust the paths in the config files to point to the correct dataset location.
+
+<!-- Running FEATS Demo on GelSight Mini Sensor -->
+### Running FEATS Demo on GelSight Mini Sensor
 If you want to test the model on your own GelSight Mini sensor, you can use the provided pre-trained modesl. The models are located in the [`src/feats/models`](src/feats/models) folder. A simple demo script is provided in the [`src/feats/src/predict`](src/feats/src/predict) folder. Inside the [`predict`](src/feats/src/predict) folder, you will also find a [`predict_config.yaml`](src/feats/src/predict/predict_config.yaml) file that contains the configuration for inference, e.g., the path to the model and normalization file.
 
 Make sure to connect your GelSight Mini sensor (with a dotted gel), to your computer. You can then run the demo script with the following command:
@@ -120,6 +137,8 @@ $ python3 predict.py --config predict_config.yaml
 
 Note that the prediction results can vary depending on the GelSight Mini sensor you are using. This can have several factors, including differences in the alignment of the camera relative to the gel, and sensor-related factors such as image brightness, contrast, saturation, and hue.
 
+<!-- Calibration -->
+### Calibration
 We provide a calibration script that can help to make the predictions better. The calibration script is located in the [`src/feats/scripts`](src/feats/scripts) folder. Again, make sure to connect your GelSight Mini sensor to your computer. You can then run the calibration script with the following command:
 
 ```console
