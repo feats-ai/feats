@@ -65,7 +65,7 @@
 
 <!-- Introduction -->
 ## Introduction
-Welcome to the FEATS repository containing the code for reproducing the results of our work on <a href="https://arxiv.org/abs/2411.03315">Learning Force Distribution Estimation for the GelSight Mini Optical Tactile Sensor Based on Finite Element Analysis</a>. This repository provides the code for training and evaluating the U-net model on the FEATS dataset. The dataset consists of shear and normal force distributions, which were inferred from FEA. The model is trained to predict the shear and normal force distributions directly from the GelSight Mini's raw images. The code is mostly written in Python and uses PyTorch for training and evaluation. In addition, the repository contains the code for data collection, setting up the FEA simulations with CalculiX and the label generation pipeline.
+Welcome to the FEATS repository containing the code for reproducing the results of our work on Learning Force Distribution Estimation for the GelSight Mini Optical Tactile Sensor Based on Finite Element Analysis. This repository provides the code for training and evaluating the U-net model on the FEATS dataset. The dataset consists of shear and normal force distributions, which were inferred from FEA. The model is trained to predict the shear and normal force distributions directly from the GelSight Mini's raw images. The code is mostly written in Python and uses PyTorch for training and evaluation. In addition, the repository contains the code for data collection, setting up the FEA simulations with CalculiX and the label generation pipeline.
 
 We hope that this repository will be useful for researchers and practitioners interested in tactile sensing, force estimation, and machine learning. 
 
@@ -120,7 +120,7 @@ Each subfolder contains a README file with further instructions on how the folde
 
 <!-- Downloading the Dataset -->
 ### Downloading the Dataset
-The dataset used in this work is available for download [here](https://archimedes.ias.informatik.tu-darmstadt.de/s/LWJxkmxrnPTSqTp). The dataset consists of GelSight Mini images with shear and normal force distributions labels, which were inferred from FEA. The dataset is split into training, validation, and test sets. The dataset is stored as `.npy` files, which can be loaded using the `numpy` library in Python. Make sure to use numpy version 2.X or higher to load the dataset.
+The dataset used in this work is available for download [here](https://drive.google.com/drive/folders/1kxUcK0YcSiE9qeQPsUWe_fNc_h1WPYkS?usp=sharing). The dataset consists of GelSight Mini images with shear and normal force distributions labels, which were inferred from FEA. The dataset is split into training, validation, and test sets. The dataset is stored as `.npy` files, which can be loaded using the `numpy` library in Python. Make sure to use numpy version 2.X or higher to load the dataset.
 
 Place the downloaded dataset in the [`src/feats/data`](src/feats/data) folder. If you want to train or visualize predictions on the dataset, you can use the provided scripts in the [`src/feats/src`](src/feats/src) folder. You just need to adjust the paths in the config files to point to the correct dataset location.
 
