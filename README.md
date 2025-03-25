@@ -65,7 +65,7 @@
 
 <!-- Introduction -->
 ## Introduction
-Welcome to the FEATS repository containing the code for reproducing the results of our work on Learning Force Distribution Estimation for the GelSight Mini Optical Tactile Sensor Based on Finite Element Analysis. This repository provides the code for training and evaluating the U-net model on the FEATS dataset. The dataset consists of shear and normal force distributions, which were inferred from FEA. The model is trained to predict the shear and normal force distributions directly from the GelSight Mini's raw images. The code is mostly written in Python and uses PyTorch for training and evaluation. In addition, the repository contains the code for data collection, setting up the FEA simulations with CalculiX and the label generation pipeline.
+Welcome to the FEATS repository. This repository provides the code for training and evaluating the U-net model on the FEATS dataset. The dataset consists of shear and normal force distributions, which were inferred from FEA. The model is trained to predict the shear and normal force distributions directly from the GelSight Mini's raw images. The code is mostly written in Python and uses PyTorch for training and evaluation. In addition, the repository contains the code for data collection, setting up the FEA simulations with CalculiX and the label generation pipeline.
 
 We hope that this repository will be useful for researchers and practitioners interested in tactile sensing, force estimation, and machine learning. 
 
