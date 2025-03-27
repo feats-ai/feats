@@ -19,7 +19,7 @@
 
 
 ```
-@misc{helmut2025feats,
+@misc{helmut_dziarski2025feats,
       title={Learning Force Distribution Estimation for the GelSight Mini Optical Tactile Sensor Based on Finite Element Analysis}, 
       author={Erik Helmut and Luca Dziarski and Niklas Funk and Boris Belousov and Jan Peters},
       year={2025},
