@@ -61,7 +61,7 @@ NindenterFixed,1,,0.0
 NindenterFixed,2,,0.0
 *CONTACT PRINT, MASTER=SindenterSurface, SLAVE=Sgelsight_miniSurface, FREQUENCY=100000
 CF
-*NODE PRINT,NSET=Ngelsigh_miniVolume, TOTALS=YES
+*NODE PRINT,NSET=Ngelsight_miniVolume, TOTALS=YES
 RF
 *NODE PRINT,NSET=Ngelsight_miniFixed, TOTALS=YES
 RF
