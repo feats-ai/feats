@@ -11,6 +11,8 @@
   <h5 align="center">Erik Helmut*, Luca Dziarski*, Niklas Funk, Boris Belousov, Jan Peters<br><em>*Equal contribution</em></h5>
 
   <p align="center">
+    <b>UPDATE: New FEATS model released — now compatible across multiple GelSight Mini sensors!</b>
+      <br /> <br />
     This repository provides the code for the work on <a href="https://arxiv.org/abs/2411.03315">Learning Force Distribution Estimation for the GelSight Mini Optical Tactile Sensor Based on Finite Element Analysis</a>. FEATS is a machine learning approach using a U-net architecture to predict contact force distributions directly from the GelSight Mini's raw images. Our model, trained on force distributions inferred from Finite Element Analysis (FEA), demonstrates promising accuracy in predicting normal and shear force distributions. It also shows potential for generalization across indenters, sensors of the same type, and for enabling real-time application.
     <br />
     <a href="https://feats-ai.github.io"><strong>For more information about FEATS, visit the project page »</strong></a> <br />
@@ -135,7 +137,9 @@ $ cd src/feats/src/predict
 $ python3 predict.py --config predict_config.yaml
 ```
 
-Note that the prediction results can vary depending on the GelSight Mini sensor you are using. This can have several factors, including differences in the alignment of the camera relative to the gel, and sensor-related factors such as image brightness, contrast, saturation, and hue.
+Our latest model [`unet_09042025_124903_80.pt`](src/feats/models/unet_09042025_124903_80.pt) is trained on data collected with multiple GelSight Mini sensors and should be compatible with most GelSight Mini sensors. The corresponding normalization file is [`normalization_08042025_122519.npy`](src/feats/data/labels/normalization_08042025_122519.npy). We still keep the previous models for legacy purposes, but we highly recommend using the latest model for best results.
+
+Note that the prediction results can still vary depending on the GelSight Mini sensor you are using. This can have several factors, including differences in the alignment of the camera relative to the gel, and sensor-related factors such as image brightness, contrast, saturation, and hue.
 
 <!-- Calibration -->
 ### Calibration
@@ -146,6 +150,8 @@ $ python3 calibrate_sensor.py
 ```
 
 The calibration script will save the calibration file in the [`src/feats/calibration`](src/feats/calibration) folder. You can then choose this calibration file in the [`predict_config.yaml`](src/feats/src/predict/predict_config.yaml) file to improve the predictions.
+
+<b>Update:</b> With the new FEATS model released, the calibration step is no longer necessary. The model is now compatible across multiple GelSight Mini sensors, and the calibration file is not required for inference. You can simply run the demo script without any calibration.
 
 
 <!-- License -->
