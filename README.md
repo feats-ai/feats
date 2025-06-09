@@ -122,7 +122,7 @@ Each subfolder contains a README file with further instructions on how the folde
 
 <!-- Downloading the Dataset -->
 ### Downloading the Dataset
-The dataset used in this work is available for download [here](https://drive.google.com/drive/folders/1kxUcK0YcSiE9qeQPsUWe_fNc_h1WPYkS?usp=sharing). The dataset consists of GelSight Mini images with shear and normal force distributions labels, which were inferred from FEA. The dataset is split into training, validation, and test sets. The dataset is stored as `.npy` files, which can be loaded using the `numpy` library in Python. Make sure to use numpy version 2.X or higher to load the dataset.
+The dataset used in this work is available for download [here](https://huggingface.co/datasets/erikhelmut/FEATS/tree/main). The dataset consists of GelSight Mini images with shear and normal force distributions labels, which were inferred from FEA. The dataset is split into training, validation, and test sets. The dataset is stored as `.npy` files, which can be loaded using the `numpy` library in Python. Make sure to use numpy version 2.X or higher to load the dataset.
 
 Place the downloaded dataset in the [`src/feats/data`](src/feats/data) folder. If you want to train or visualize predictions on the dataset, you can use the provided scripts in the [`src/feats/src`](src/feats/src) folder. You just need to adjust the paths in the config files to point to the correct dataset location.
 
